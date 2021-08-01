@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Curso.Api": {
+    "curso.Api": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "",

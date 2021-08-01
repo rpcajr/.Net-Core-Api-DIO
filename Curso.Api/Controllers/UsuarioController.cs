@@ -1,15 +1,16 @@
-﻿using Curso.Api.Filters;
-using Curso.Api.Models;
-using Curso.Api.Models.Usuarios;
+﻿using curso.Api.Filters;
+using curso.Api.Models;
+using curso.Api.Models.Usuarios;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Curso.Api.Controllers
+namespace curso.Api.Controllers
 {
     [Route("api/v1/usuario")]
     [ApiController]
@@ -53,10 +54,16 @@ namespace Curso.Api.Controllers
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature)
-
             };
 
-            return Ok(loginViewModelInput);
+            var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+            var tokenGeneratedd = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
+            var token = jwtSecurityTokenHandler.WriteToken(tokenGeneratedd);
+            return Ok(new 
+            { 
+                Token = token,
+                usuario = usuarioViewModelOutput
+            });
         }
 
         [HttpPost]

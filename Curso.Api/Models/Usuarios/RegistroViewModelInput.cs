@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Curso.Api.Models.Usuarios
+namespace curso.Api.Models.Usuarios
 {
     public class RegistroViewModelInput
     {
